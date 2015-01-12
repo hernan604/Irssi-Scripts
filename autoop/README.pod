@@ -1,0 +1,18 @@
+=encoding_utf8
+
+=head1 AutoOp tool
+
+=head2 DESCRIPTION
+
+This is yet another auto op tool... allows to add, delete and list autoop users.
+
+=head2 SYNOPSIS
+
+ irssi commands:
+
+    /autoop_help
+    /autoop_list
+    /autoop_add
+    /autoop_del
+    /autoop_set
+
