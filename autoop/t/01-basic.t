@@ -131,7 +131,6 @@ ok( $autoop->should_op_nick( '#somechan', 'Somenick', '~bla@200.201.202.203' ), 
     ok( $autoop->should_op_nick( '#chan1', 'Somenick', 'xxx@1.2.3.4' ), '' );
     ok(!$autoop->should_op_nick( '#chan1', 'Somenick', 'xxx@4.3.2.1' ), '' );
 }
-
 unlink 'tests_db.json';
 
 done_testing;

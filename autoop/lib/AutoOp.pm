@@ -73,11 +73,18 @@ sub list {
     $out;
 }
 
+sub trim {
+    my $self = shift;
+    my $value = shift;
+    $value =~ s#^(( |\s|\n|\t|\r)+)|(( |\s|\n|\t|\r)+)$##g;
+    $value;
+}
+
 sub set {
     #set attr value
     my $self = shift;
-    my $nick = shift;
-    my $attribute = shift;
+    my $nick = $self->trim( shift );
+    my $attribute = $self->trim(shift);
     my $value = shift;
     #ABSTRACT: Sets alternative nicks for $nick.
     #ie: alternatives('some_nick', 'alernativenick1 altnick2')
@@ -85,7 +92,8 @@ sub set {
     return "You must pass the action (hostnames,channels,alternatives) nick for $nick" if ! $attribute;
     return "Nick $nick not found in db. Add nick first" if ! exists $self->json_db->{ nick }->{ $nick };
     return "You must pass a value for $attribute" if ! defined $value;
-    $self->json_db->{ nick }->{ $nick }->$attribute([split ' ', $value]);
+    return "Action unkown $attribute " if ! $self->json_db->{ nick }->{ $nick }->can( $attribute );
+    $self->json_db->{ nick }->{ $nick }->$attribute([map { $self->trim( $_ ) } split / +/, $value]);
     $self->save;
     return "Modified $nick $attribute to: $value";
 }
@@ -93,7 +101,7 @@ sub set {
 sub add {
     #add nick to autoop tool
     my $self = shift;
-    my $nick = shift;
+    my $nick = $self->trim( shift );
     return "You must pass a nick to add" if ! $nick;
     if ( ! exists $self->json_db->{nick}->{ $nick } ) {
         $self->json_db->{ nick }->{ $nick } = AutoOp::User->new({
@@ -110,7 +118,7 @@ sub add {
 sub del {
     #delete nick from  autoop tool
     my $self = shift;
-    my $nick = shift;
+    my $nick = $self->trim( shift );
     return "You must pass a nick to del" if ! $nick;
     if ( exists $self->json_db->{ nick }->{ $nick } ) {
         delete $self->json_db->{ nick }->{ $nick };
@@ -124,9 +132,9 @@ sub del {
 sub should_op_nick {
     #this method should be called every time a user joins a channel
     my $self = shift;
-    my $chan = shift;
-    my $nick = shift;
-    my $host = shift;
+    my $chan = $self->trim( shift );
+    my $nick = $self->trim( shift );
+    my $host = $self->trim( shift );
 
     for ( keys %{ $self->json_db->{ nick } } ) {
         my $key_nick = $_;
