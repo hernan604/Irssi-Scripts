@@ -56,6 +56,7 @@ sub nick_valid {
     return 1 if (
         $nick eq $self->nick
         or grep /^\Q$nick\E$/, @{ $self->alternatives }
+        or grep /^\*$/, @{ $self->alternatives }
     );
     return 0;
 }

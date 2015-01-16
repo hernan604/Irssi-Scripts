@@ -67,7 +67,7 @@ sub list {
     my $counter = 1;
     $out .= form "      {<<<<<<<<<<} {<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<}",
                  (qw| Nick Alternatives Channels Hostnames|);
-    for ( keys %{ $self->json_db->{ nick } } ) {
+    for ( sort keys %{ $self->json_db->{ nick } } ) {
         $out .= $self->json_db->{ nick }->{$_}->stats;
     }
     $out;

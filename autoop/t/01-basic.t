@@ -131,6 +131,28 @@ ok( $autoop->should_op_nick( '#somechan', 'Somenick', '~bla@200.201.202.203' ), 
     ok( $autoop->should_op_nick( '#chan1', 'Somenick', 'xxx@1.2.3.4' ), '' );
     ok(!$autoop->should_op_nick( '#chan1', 'Somenick', 'xxx@4.3.2.1' ), '' );
 }
+
+{
+    #give op to user in any channel... add user to any channel
+    $autoop->set( $user1->{ nick }, 'alternatives', "*" );
+    #ok();
+    ok( $autoop->should_op_nick( '#chan1', 'AnewNick', 'xxx@1.2.3.4' ), 'user is allowed to have * nicks.. so any nick with matched hostname and channel should be opped' );
+}
+
+{
+    #autoop in specific channel
+    $autoop->add( 'freeops_anychan' );
+    $autoop->set( 'freeops_anychan', 'channels', '*' );
+    $autoop->set( 'freeops_anychan', 'alternatives', '*' );
+    $autoop->set( 'freeops_anychan', 'hostnames', '*@*' );
+    ok( $autoop->should_op_nick( '#chandsa1', 'dasdasAnewNick', 'dsaxxx@1dsa.2.3.4' ), 'everyone gets ops' );
+    $autoop->set( 'freeops_anychan', 'channels', '#specific_channel' );
+    not( $autoop->should_op_nick( '#chandsa1', 'dasdasAnewNick', 'dsaxxx@1dsa.2.3.4' ), 'everyone gets ops' );
+    ok(!$autoop->should_op_nick( '#chandsa1', 'dasdasAnewNick', 'dsaxxx@1dsa.2.3.4' ), 'everyone gets ops' );
+    ok( $autoop->should_op_nick( '#specific_channel', 'XXXdasdasAnewNick', 'YYY@123.123.123.123' ), 'everyone gets ops' );
+    ok( $autoop->should_op_nick( '#specific_channel', 'XXXdasdasZZZ', 'ZZZ@4.3.2.1' ), 'everyone gets ops' );
+}
+
 unlink 'tests_db.json';
 
 done_testing;
