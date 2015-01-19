@@ -40,12 +40,17 @@ sub matches {
 
 sub chan_valid {
     my $self = shift;
-    my $chan = shift;
+    my $chan = lc shift;
     #checks if this user should be opped in given chan
     return 1 if ( 
            grep /^\*$/, @{ $self->channels } # user has op in * chan
-        or grep /^\Q$chan\E$/, @{ $self->channels } # user has op in given chan
-    ); 
+        or grep {
+                lc $_ =~ m/^\Q$chan\E$/
+                    ? 1
+                    : ()
+                    ;
+            } @{ $self->channels } # user has op in given chan
+    );
     return 0;
 }
 
