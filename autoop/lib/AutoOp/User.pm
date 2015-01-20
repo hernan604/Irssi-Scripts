@@ -45,7 +45,7 @@ sub chan_valid {
     return 1 if ( 
            grep /^\*$/, @{ $self->channels } # user has op in * chan
         or grep {
-                lc $_ =~ m/^\Q$chan\E$/
+                lc $_ =~ m/^\Q$chan\E$/i
                     ? 1
                     : ()
                     ;
