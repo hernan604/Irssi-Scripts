@@ -65,8 +65,8 @@ sub list {
 #   $out .= "There are currently $total_users users added in autoop tool.\n";
     return $out if $total_users == 0;
     my $counter = 1;
-    $out .= form "      {<<<<<<<<<<} {<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<}",
-                 (qw| Nick Alternatives Channels Hostnames|);
+    $out .= form "      {<<<<<<<<<<} {<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<}",
+                 (qw| Nick Alternatives Channels Networks Hostnames|);
     for ( sort keys %{ $self->json_db->{ nick } } ) {
         $out .= $self->json_db->{ nick }->{$_}->stats;
     }
@@ -135,6 +135,7 @@ sub should_op_nick {
     my $chan = $self->trim( shift );
     my $nick = $self->trim( shift );
     my $host = $self->trim( shift );
+    my $network = $self->trim( shift );
 
     for ( keys %{ $self->json_db->{ nick } } ) {
         my $key_nick = $_;
@@ -143,6 +144,7 @@ sub should_op_nick {
             chan => $chan,
             nick => $nick,
             host => $host,
+            network => $network,
         } );
     }
 
