@@ -132,10 +132,10 @@ sub del {
 sub should_op_nick {
     #this method should be called every time a user joins a channel
     my $self = shift;
-    my $chan = $self->trim( shift );
-    my $nick = $self->trim( shift );
-    my $host = $self->trim( shift );
-    my $network = $self->trim( shift );
+    my $chan = $self->trim( shift||"" );
+    my $nick = $self->trim( shift||"" );
+    my $host = $self->trim( shift||"" );
+    my $network = $self->trim( shift||"" );
 
     for ( keys %{ $self->json_db->{ nick } } ) {
         my $key_nick = $_;

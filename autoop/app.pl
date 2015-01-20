@@ -18,7 +18,7 @@ my $autoop = AutoOp->new( db_file => $ENV{HOME}.'/.irssi/scripts/autoop.json' );
 sub event_join {
     my ( $server, $channel, $nick, $address ) = @_;
     $channel =~ s#^:##g; #removes leading :
-    if ( $autoop->should_op_nick( $channel, $nick, $address ) ) {
+    if ( $autoop->should_op_nick( $channel, $nick, $address, $server->{chatnet} ) ) {
         Irssi::Server::command( $server, "/mode $channel +o $nick" );
         #or $server->command( "/mode $channel +o $nick" );
     }
