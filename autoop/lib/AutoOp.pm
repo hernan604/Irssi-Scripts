@@ -34,6 +34,8 @@ set <nick> hostnames ~first@200.* ~second@1.2.3.4 ~third@domain.com         Mult
 set <nick> hostnames *                                                      Any hostname for this user
 set <nick> channels #chan1 #chan2 #chan3                                    Only op user in these channels
 set <nick> channels *                                                       Op user in any channel
+set <nick> networks _some_chatnet_ efnet linknet                            Multiple networks for user
+set <nick> networks *                                                       Any network for this user
 del <nick>                                                                  Remove nick from autoop db
 HELP
 }

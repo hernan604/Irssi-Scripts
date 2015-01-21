@@ -10,17 +10,23 @@ This is yet another auto op tool... allows to add, delete and list autoop users.
 
  irssi commands:
 
-    /autoop_help
-    /autoop_list
-    /autoop_add
-    /autoop_del
-    /autoop_set
+ /autoop_help
+ /autoop_list
+ /autoop_add
+ /autoop_del
+ /autoop_set
 
 =head2 Op everyone in specific channel
 
-    /autoop_add op_everyone
-    /autoop_set op_everyone channels #this_channel
-    /autoop_set op_everyone hostnames *@*
-    /autoop_set alternatives *
+ /autoop_add op_everyone
+ /autoop_set op_everyone channels #this_channel
+ /autoop_set op_everyone hostnames *@*
+ /autoop_set alternatives *
 
+=head2 Op everyone in specific network
 
+ There are currently 1 users added in autoop tool.
+ Nick         Alternatives Channels                   Networks                   Hostnames
+ op_everyone  *            *                          local                      *@*
+
+ This setup will op everyone on network "local"
