@@ -12,6 +12,7 @@ sub to_hash {
         alternatives => $self->alternatives,
         hostnames    => $self->hostnames,
         channels     => $self->channels,
+        networks     => $self->networks,
     };
 }
 
