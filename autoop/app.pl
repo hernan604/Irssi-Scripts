@@ -52,8 +52,9 @@ sub cmd_nick_opped {
             #or $server->command( "mode $channel +o $nick" );
             #warn "+o $_->{nick} in $channel";
         } else {
-            $server->channel_find($channel)->command("deop $_->{nick}")
-                if ( ! $opped_by_me->($_->{nick}) );
+            # better dont deop anyone
+           #$server->channel_find($channel)->command("deop $_->{nick}")
+           #    if ( ! $opped_by_me->($_->{nick}) );
             #Irssi::Server::command( $server, qq"mode $channel -o $_->{nick}" );
             #warn qq"-o $_->{nick} in $channel";
         }
